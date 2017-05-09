@@ -18358,12 +18358,13 @@ $('document').ready(() => {
     });
 
     $('#btnSend').click(() => {
+        const receiver = $('#txtReceiver').val();
         const message = $('#txtMessage').val();
-        socket.emit('NGUOI_DUNG_GUI_TIN', message);
+        socket.emit('TIN_NHAN_RIENG', { receiver, message });
     });
 
-    socket.on('TIN_NHAN_MOI', message => {
-        $('#ulMessage').append(`<li>${message}</li>`)
+    socket.on('NHAN_TIN_NHAN_RIENG', message => {
+        $('#ulMessage').append(`<li>${message}</li>`);
     });
 
     socket.on('NGUOI_DUNG_THOAT', username => {
