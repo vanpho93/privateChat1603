@@ -32,6 +32,7 @@ io.on('connection', socket => {
     socket.on('TIN_NHAN_RIENG', data => {
         const { receiver, message } = data;
         const index = arrSocket.findIndex(e => e.username === receiver);
+        if (index === -1) return console.log(receiver);
         const toSend = `${socket.username}: ${message}`;
         socket.to(arrSocket[index].id).emit('NHAN_TIN_NHAN_RIENG', toSend);
     });
