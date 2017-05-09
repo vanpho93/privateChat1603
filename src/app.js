@@ -15,8 +15,16 @@ $('document').ready(() => {
             arrUser.forEach(e => {
                 $('#ulUser').append(`<li id="${e}">${e}</li>`);
             });
+            $('li').click(function () {
+                $('li').removeClass('red');
+                $(this).addClass('red');
+            });
             socket.on('NGUOI_DUNG_MOI', username => {
                 $('#ulUser').append(`<li id="${username}">${username}</li>`);
+                $('li').click(function () {
+                    $('li').removeClass('red');
+                    $(this).addClass('red');
+                });
             });
             $('#divChat').show();
             return $('#divSignUp').hide();
@@ -36,6 +44,11 @@ $('document').ready(() => {
 
     socket.on('NGUOI_DUNG_THOAT', username => {
         $(`#${username}`).remove();
+    });
+
+    $('li').click(function() {
+        $('li').removeClass('red');
+        $(this).addClass('red');
     });
 });
 
