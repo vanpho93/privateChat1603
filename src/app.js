@@ -20,4 +20,15 @@ $(document).ready(() => {// eslint-disable-line
         const otherId = $('#otherId').val();
         p.signal(JSON.parse(otherId));
     });
+    
+    $('#btnSend').click(() => {
+        const message = $('#txtMessage').val();
+        p.send(message);
+    });
+
+    $('#btnShowWebcam').click(() => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(stream => console.log(stream))
+        .catch(err => console.log(err));
+    });
 });
