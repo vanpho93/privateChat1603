@@ -16575,37 +16575,39 @@ function config (name) {
 const Peer = __webpack_require__(15);
 const $ = __webpack_require__(14);
 
-const p = new Peer({
-    initiator: location.hash === '#1', trickle: false // eslint-disable-line
-});
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    .then(stream => {
+        const video = document.querySelectorAll('video')[0];
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
 
-p.on('signal', 
-    data => $('#connectId').text(JSON.stringify(data)));
+        const p = new Peer({
+            initiator: location.hash === '#1',  // eslint-disable-line
+            trickle: false,
+            stream
+        });
 
-p.on('connect', () => {
-  console.log('CONNECT');
-  p.send('whatever' + Math.random());
-});
+        p.on('signal',
+            data => $('#connectId').text(JSON.stringify(data)));
 
-p.on('data', data => console.log(data.toString()));
+        p.on('connect', () => {
+            console.log('CONNECT');
+            p.send('whatever' + Math.random());
+        });
 
-$(document).ready(() => {// eslint-disable-line
-    $('#btnConnect').click(() => {
-        const otherId = $('#otherId').val();
-        p.signal(JSON.parse(otherId));
-    });
-    
-    $('#btnSend').click(() => {
-        const message = $('#txtMessage').val();
-        p.send(message);
-    });
+        p.on('data', data => console.log(data.toString()));
 
-    $('#btnShowWebcam').click(() => {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-        .then(stream => console.log(stream))
-        .catch(err => console.log(err));
-    });
-});
+        $('#btnConnect').click(() => {
+            const otherId = $('#otherId').val();
+            p.signal(JSON.parse(otherId));
+        });
+
+        $('#btnSend').click(() => {
+            const message = $('#txtMessage').val();
+            p.send(message);
+        });
+    })
+    .catch(err => console.log(err));
 
 
 /***/ }),
