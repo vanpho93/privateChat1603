@@ -3,9 +3,9 @@ const $ = require('jquery');
 
 navigator.mediaDevices.getUserMedia({ video: true, audio: false })
     .then(stream => {
-        const video = document.querySelectorAll('video')[0];
-        video.src = window.URL.createObjectURL(stream);
-        video.play();
+        // const video = document.querySelectorAll('video')[0];
+        // video.src = window.URL.createObjectURL(stream);
+        // video.play();
 
         const p = new Peer({
             initiator: location.hash === '#1',  // eslint-disable-line
@@ -22,6 +22,12 @@ navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         });
 
         p.on('data', data => console.log(data.toString()));
+
+        p.on('stream', stream2 => {
+            const video2 = document.querySelectorAll('video')[0];
+            video2.src = window.URL.createObjectURL(stream2);
+            video2.play();
+        });
 
         $('#btnConnect').click(() => {
             const otherId = $('#otherId').val();

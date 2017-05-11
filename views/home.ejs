@@ -2,7 +2,11 @@
 <html lang="en">
     <head>
         <title>Khoa Pham</title>
-        
+        <style>
+            hr {
+                visibility: hidden;
+            }
+        </style>
     </head>
     <body>
         <p id="connectId"></p>
@@ -16,7 +20,9 @@
         <button id="btnSend">Send</button>
         <br /><br />
         <button id="btnShowWebcam">Show webcam</button>
-        <video width="320" height="180"/>
+        <video width="320" height="180" controls />
+        <hr />
+        <video width="320" height="180" controls />
         <script src="bundle.js"></script>
     </body>
 </html>
